@@ -47,7 +47,7 @@ def forward_text(client, message):
     # Send the text message to target channel
     try:
         forwarded_message = client.send_message(
-            target_channel_id, message.text)
+            target_channel_id, message.text + "@Mousa11Prime_Leaker")
         store_id[message.id] = forwarded_message.id
     except Exception as e:
         print(f"Failed to forward text message: {e}")
@@ -58,7 +58,7 @@ def forward_photo(client, message):
     # Send the photo message to target channel.
     file_id = client.download_media(message)
     try:
-        forwarded_message = client.send_photo(target_channel_id, file_id, caption="@mousa11prime_leaker")
+        forwarded_message = client.send_photo(target_channel_id, file_id, caption="@Mousa11Prime_Leaker")
         store_id[message.id] = forwarded_message.id
     except Exception as e:
         print(f"Failed to forward photo message: {e}")
@@ -76,7 +76,7 @@ def update_text(client, message):
     # Update the edited text message in target channel
     message_id = store_id.get(message.id)
     try:
-        client.edit_message_text(target_channel_id, message_id, message.text)
+        client.edit_message_text(target_channel_id, message_id, message.text + "@Mousa11Prime_Leaker")
     except Exception as e:
         print(f"Failed to update text message: {e}")
 
