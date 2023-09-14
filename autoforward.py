@@ -58,7 +58,7 @@ def forward_photo(client, message):
     # Send the photo message to target channel.
     file_id = client.download_media(message)
     try:
-        forwarded_message = client.send_photo(target_channel_id, file_id)
+        forwarded_message = client.send_photo(target_channel_id, file_id, caption="@mousa11prime_leaker")
         store_id[message.id] = forwarded_message.id
     except Exception as e:
         print(f"Failed to forward photo message: {e}")
