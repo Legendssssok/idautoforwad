@@ -1,0 +1,11 @@
+{
+    "name":"Userbot ahtoforward",
+    "description":"Ruma Motion",
+    "repository":"https://github.com/",
+    "env": {
+        "LOL":{
+            "description": "Get your soon",
+            "value":"828"
+        }
+    }
+}
