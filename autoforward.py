@@ -39,7 +39,7 @@ async def start(client: Client, message: Message):
 @app.on_message(filters.chat(source_channel_id) & filters.text)
 def forward_text(client, message):
     # Check if the message contains any whitelisted or blacklisted words
-    text = message.text.lower()
+    text = message.text
     if any(word in text for word in blacklist_words):
         return
     if not any(word in text for word in whitelist_words):
