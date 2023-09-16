@@ -18,8 +18,8 @@ app = Client(name="Mousa", api_id=API_ID, api_hash=API_HASH,
              bot_token=BOT_TOKEN, session_string=STRING)
 
 # Source and target channel IDs
-source_channel_id = -1001802779833
-target_channel_id = -1001746279641
+source_channel_id =  -1001865127650
+target_channel_id =  -1001803951089
 
 # Store id for update
 store_id = {}
@@ -29,6 +29,7 @@ whitelist_words = ["gl", "vc", "c", "@mousa11prime_leaker", "dream11"]
 blacklist_words = ["https://t.me/mousaprimeleaks",
                    "https://t.me/+ekRbqpexagE3MGE9", "@Auto_Forward_Messages_Bot", ".", ","]
 
+auto_forwarding= True
 
 @app.on_message(filters.command(["start"], ".") & filters.me)
 async def start(client: Client, message: Message):
@@ -36,14 +37,38 @@ async def start(client: Client, message: Message):
     await ex.edit("Hello i am online.")
 
 
+@app.on_message(filters.command(["autoforward"], ".") & filters.me)
+async def start(client: Client, message: Message):
+    global auto_forwarding
+    ex = await message.edit_text("Processing...")
+    command = message.text.split()[1]
+    if command == 'start':
+        if not auto_forwarding:
+            # Start auto-forwarding logic here
+            auto_forwarding = True
+            await ex.edit('Auto-forwarding started.')
+        else:
+            await ex.edit('Auto-forwarding is already started.')
+    elif command == 'stop':
+        if auto_forwarding:
+            # Stop auto-forwarding logic here
+            auto_forwarding = False
+            await ex.edit('Auto-forwarding stopped.')
+        else:
+            await ex.edit('Auto-forwarding is already stopped.')
+
+
 @app.on_message(filters.chat(source_channel_id) & filters.text)
 def forward_text(client, message):
+    global auto_forwarding
     # Check if the message contains any whitelisted or blacklisted words
     text = message.text.lower()
     if any(word in text for word in blacklist_words):
         return
     if not any(word in text for word in whitelist_words):
         return
+    if not auto_forwarding:
+    	return
     # Send the text message to target channel
     try:
         forwarded_message = client.send_message(
