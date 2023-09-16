@@ -27,7 +27,7 @@ store_id = {}
 # Whitelist and blacklist
 whitelist_words = ["gl", "vc", "c", "@mousa11prime_leaker", "dream11"]
 blacklist_words = ["https://t.me/mousaprimeleaks",
-                   "https://t.me/+ekRbqpexagE3MGE9", "@Auto_Forward_Messages_Bot"]
+                   "https://t.me/+ekRbqpexagE3MGE9", "@Auto_Forward_Messages_Bot", ".", ","]
 
 
 @app.on_message(filters.command(["start"], ".") & filters.me)
@@ -39,7 +39,7 @@ async def start(client: Client, message: Message):
 @app.on_message(filters.chat(source_channel_id) & filters.text)
 def forward_text(client, message):
     # Check if the message contains any whitelisted or blacklisted words
-    text = message.text
+    text = message.text.lower()
     if any(word in text for word in blacklist_words):
         return
     if not any(word in text for word in whitelist_words):
@@ -47,7 +47,7 @@ def forward_text(client, message):
     # Send the text message to target channel
     try:
         forwarded_message = client.send_message(
-            target_channel_id, message.text + "\n\n@Mousa11Prime_Leaker")
+            target_channel_id, message.text + "\n\n➡️ Mousa FinaL \n\n➡️ Join Channel : @Mousa11Prime_Leaker\n➡️ Link : https://t.me/Mousa11Prime_Leaker", disable_web_page_preview=True)
         store_id[message.id] = forwarded_message.id
     except Exception as e:
         print(f"Failed to forward text message: {e}")
@@ -58,7 +58,8 @@ def forward_photo(client, message):
     # Send the photo message to target channel.
     file_id = client.download_media(message)
     try:
-        forwarded_message = client.send_photo(target_channel_id, file_id, caption="@Mousa11Prime_Leaker")
+        forwarded_message = client.send_photo(
+            target_channel_id, file_id, caption="\n\n➡️ Mousa FinaL \n\n➡️ Join Channel : @Mousa11Prime_Leaker\n➡️ Link : https://t.me/Mousa11Prime_Leaker")
         store_id[message.id] = forwarded_message.id
     except Exception as e:
         print(f"Failed to forward photo message: {e}")
@@ -76,7 +77,8 @@ def update_text(client, message):
     # Update the edited text message in target channel
     message_id = store_id.get(message.id)
     try:
-        client.edit_message_text(target_channel_id, message_id, message.text + "\n\n@Mousa11Prime_Leaker")
+        client.edit_message_text(target_channel_id, message_id, message.text +
+                                 "\n\n➡️ Mousa FinaL \n\n➡️ Join Channel : @Mousa11Prime_Leaker\n➡️ Link : https://t.me/Mousa11Prime_Leaker", disable_web_page_preview=True)
     except Exception as e:
         print(f"Failed to update text message: {e}")
 
