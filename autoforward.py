@@ -18,8 +18,8 @@ app = Client(name="Mousa", api_id=API_ID, api_hash=API_HASH,
              bot_token=BOT_TOKEN, session_string=STRING)
 
 # Source and target channel IDs
-source_channel_id =  -1001865127650
-target_channel_id =  -1001803951089
+source_channel_id = -1001802779833
+target_channel_id = -1001746279641
 
 # Store id for update
 store_id = {}
@@ -29,7 +29,8 @@ whitelist_words = ["gl", "vc", "c", "@mousa11prime_leaker", "dream11"]
 blacklist_words = ["https://t.me/mousaprimeleaks",
                    "https://t.me/+ekRbqpexagE3MGE9", "@Auto_Forward_Messages_Bot", ".", ","]
 
-auto_forwarding= True
+auto_forwarding = True
+
 
 @app.on_message(filters.command(["start"], ".") & filters.me)
 async def start(client: Client, message: Message):
@@ -68,7 +69,7 @@ def forward_text(client, message):
     if not any(word in text for word in whitelist_words):
         return
     if not auto_forwarding:
-    	return
+        return
     # Send the text message to target channel
     try:
         forwarded_message = client.send_message(
@@ -81,6 +82,8 @@ def forward_text(client, message):
 @app.on_message(filters.chat(source_channel_id) & filters.photo)
 def forward_photo(client, message):
     # Send the photo message to target channel.
+    if not auto_forwarding:
+        return
     file_id = client.download_media(message)
     try:
         forwarded_message = client.send_photo(
@@ -99,6 +102,8 @@ def update_text(client, message):
         return
     if not any(word in text for word in whitelist_words):
         return
+    if not auto_forwarding:
+        return
     # Update the edited text message in target channel
     message_id = store_id.get(message.id)
     try:
@@ -111,6 +116,8 @@ def update_text(client, message):
 @app.on_edited_message(filters.chat(source_channel_id) & filters.photo)
 def update_photo(client, message):
     # Update the edited photo message in target channel
+    if not auto_forwarding:
+        return
     print("Updating Photo")
     file_id = client.download_media(message)
     message_id = store_id.get(message.id)
