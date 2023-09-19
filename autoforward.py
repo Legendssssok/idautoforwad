@@ -25,9 +25,9 @@ target_channel_id = -1001746279641
 store_id = {}
 
 # Whitelist and blacklist
-whitelist_words = ["gl", "vc", "c", "@mousa11prime_leaker", "dream11"]
-blacklist_words = ["https://t.me/mousaprimeleaks",
-                   "https://t.me/+ekRbqpexagE3MGE9", "@Auto_Forward_Messages_Bot", ".", ","]
+whitelist_words = ["gl", "vc", "c", "@mousa11prime_leaker", "dream11", "pick"]
+blacklist_words = ["t.me/mousaprimeleaks",
+                   "t.me/+ekRbqpexagE3MGE9", "@Auto_Forward_Messages_Bot", "schedule", "coming", "wickets", "Upcoming" , "Cleansweep" ,"@Mousaprimes"]
 
 auto_forwarding = True
 
@@ -92,7 +92,6 @@ def forward_photo(client, message):
     except Exception as e:
         print(f"Failed to forward photo message: {e}")
     os.remove(file_id)
-
 
 @app.on_edited_message(filters.chat(source_channel_id) & filters.text)
 # Check if the message contains any whitelisted or blacklisted words
